@@ -83,10 +83,6 @@ button{
   padding: 15px
 }
 
-button#submit {
-    margin-top: 0px !important;
-}
-
 button.enable{
   background-color: #145b90;
   color:white;
@@ -162,6 +158,10 @@ footer{
 
   .box>img{
     width: 80px;
+  }
+
+  button#submit {
+      margin-top: 0px !important;
   }
 
   .container>button{

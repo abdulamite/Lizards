@@ -7,7 +7,7 @@ let answer_set = ["Red","Orange","Yellow","Green","Blue","Purple"];
 
 options.forEach(option =>{
 
-  //The purpose of this function is to enable the submit button at the bottom of the screen.  
+  //The purpose of this function is to enable the submit button at the bottom of the screen.
   function enableSubmit(){
 
       // Grab selected value
@@ -18,6 +18,7 @@ options.forEach(option =>{
       const img = `../accessible_lizards/imgs/${color}.png`;
       // Set the current img to the new lizard image
       box.querySelector('IMG').src = img;
+      box.querySelector('IMG').alt = `${color} Lizard`;
 
 
       // declare array to store selections
@@ -28,7 +29,7 @@ options.forEach(option =>{
       });
       console.log(lizards)
 
-      // if all selections have been made, enable submit button
+      // if all selections have been made, enable submit button at the buttom of the screen
       if(!lizards.includes("")){
         submit.classList.add('enable');
         submit.disabled=false;
@@ -44,7 +45,16 @@ const reflected = document.querySelector('#reflected');
 const absorbed = document.querySelector('#absorbed');
 
 reflected.addEventListener('click',() =>{
-  console.log('Reflected Answer Set');
+  options.forEach(i =>{
+    i.selectedIndex=0;
+    i.value=null;
+    const box = i.parentElement;
+    // set path to lizard images
+    const img = `../accessible_lizards/imgs/Asset_8.png`;
+    // Set the current img to the new lizard image
+    box.querySelector('IMG').src = img;
+  });
+
   absorbed.style.transform = "translateY(0px)";
   absorbed.style.backgroundColor = "#666666";
   absorbed.style.color = "white";
@@ -53,10 +63,20 @@ reflected.addEventListener('click',() =>{
   reflected.style.backgroundColor = "white";
   reflected.style.color = "#666666";
   return answer_set = ["Red","Orange","Yellow","Green","Blue","Purple"];
+
 });
 
 absorbed.addEventListener('click',() =>{
-  console.log('Absorbed Answer Set');
+  options.forEach(i =>{
+    i.selectedIndex=0;
+    i.value=null;
+    const box = i.parentElement;
+    // set path to lizard images
+    const img = `../accessible_lizards/imgs/Asset_8.png`;
+    // Set the current img to the new lizard image
+    box.querySelector('IMG').src = img;
+  });
+
   reflected.style.transform = "translateY(0px)";
   reflected.style.backgroundColor = "#666666";
   reflected.style.color = "white";
@@ -66,8 +86,6 @@ absorbed.addEventListener('click',() =>{
   absorbed.style.color = "#666666";
   return answer_set = ["Purple","Blue","Green","Yellow","Orange","Red"];
 });
-
-console.log(answer_set);
 
 // check users answers
 function checkAnswer(){
@@ -121,7 +139,6 @@ function checkAnswer(){
     else if (attempts >= 3) {
       feedbackText = `You are ${((points/6)*100).toFixed(2)}% correct. Try again.`;
     }
-    // feedbackText = `You are ${((points/6)*100).toFixed(2)}% correct. Keep trying! This is attempt #${attempts}`;
     feedback.style.backgroundColor = '#e27e7e';
     feedback.style.opacity = 1;
   }
