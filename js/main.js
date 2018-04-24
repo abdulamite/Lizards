@@ -1,6 +1,9 @@
 
 const options = document.querySelectorAll('select');
 const submit = document.querySelector('#submit');
+const feedback = document.querySelector('.feedback');
+const prompt = document.querySelector('.instructions');
+
 let attempts = 0;
 
 let answer_set = ["Red","Orange","Yellow","Green","Blue","Purple"];
@@ -44,10 +47,20 @@ options.forEach(option =>{
 const reflected = document.querySelector('#reflected');
 const absorbed = document.querySelector('#absorbed');
 
+
+// The purpose of this function is to switch to the reflected wavelength game
 reflected.addEventListener('click',() =>{
+  // Change the prompt to the reflected wavelength directions
+  prompt.innerHTML = `<p>Order the below lizards from <b>HIGHEST</b> to <b>LOWEST</b> reflected wavelength</p>`
   options.forEach(i =>{
     i.selectedIndex=0;
-    i.value=null;
+    submit.disabled=true;
+    submit.classList.remove('enable');
+    // make the old feedback invisable
+    feedback.style.opacity=0;
+    feedback.style.height=0;
+
+    // when the tab changes, all lizards will be blank again
     const box = i.parentElement;
     // set path to lizard images
     const img = `../accessible_lizards/imgs/Asset_8.png`;
@@ -55,21 +68,35 @@ reflected.addEventListener('click',() =>{
     box.querySelector('IMG').src = img;
   });
 
+  // Transition to make reflected tab active
   absorbed.style.transform = "translateY(0px)";
   absorbed.style.backgroundColor = "#666666";
-  absorbed.style.color = "white";
+  absorbed.querySelector('button').style.color="white";
 
+  // Transition to make absorbed tab inactive
   reflected.style.transform = "translateY(2px)";
   reflected.style.backgroundColor = "white";
-  reflected.style.color = "#666666";
+  reflected.querySelector('button').style.color="#666666";
+
+
+  //load in new answer set
   return answer_set = ["Red","Orange","Yellow","Green","Blue","Purple"];
 
 });
 
+
+// The purpose of this function is to switch to the absorbed wavelength game
 absorbed.addEventListener('click',() =>{
+  // Change the prompt to the absorbed wavelength directions
+  prompt.innerHTML = `<p>Order the below lizards from <b>HIGHEST</b> to <b>LOWEST</b> absorbed wavelength</p>`
   options.forEach(i =>{
     i.selectedIndex=0;
-    i.value=null;
+    submit.disabled=true;
+    submit.classList.remove('enable');
+    feedback.style.opacity=0;
+    feedback.style.height=0;
+
+    // when the tab changes, all lizards will be blank again
     const box = i.parentElement;
     // set path to lizard images
     const img = `../accessible_lizards/imgs/Asset_8.png`;
@@ -77,13 +104,19 @@ absorbed.addEventListener('click',() =>{
     box.querySelector('IMG').src = img;
   });
 
+  // Transition to make absorbed tab active
   reflected.style.transform = "translateY(0px)";
   reflected.style.backgroundColor = "#666666";
-  reflected.style.color = "white";
+  reflected.querySelector('button').style.color="white";
 
+
+  // Transition to make absorbed tab inactive
   absorbed.style.transform = "translateY(2px)";
   absorbed.style.backgroundColor = "white";
-  absorbed.style.color = "#666666";
+  absorbed.querySelector('button').style.color="#666666";
+
+
+  //load in new answer set
   return answer_set = ["Purple","Blue","Green","Yellow","Orange","Red"];
 });
 
@@ -116,7 +149,6 @@ function checkAnswer(){
   }
 
   let feedbackText = `You have scored ${points} points`
-  const feedback = document.querySelector('.feedback');
 
   if(feedback){
     document.querySelector('.feedback').firstChild.remove();
@@ -128,6 +160,7 @@ function checkAnswer(){
     console.log(submit.innerHTML = 'continue');
     feedback.style.backgroundColor = '#80e27e';
     feedback.style.opacity = 1;
+    feedback.style.height="auto";
   }else {
     attempts++;
     if(attempts === 1){
@@ -141,6 +174,7 @@ function checkAnswer(){
     }
     feedback.style.backgroundColor = '#e27e7e';
     feedback.style.opacity = 1;
+    feedback.style.height="auto";
   }
     var para = document.createElement("p");
     var node = document.createTextNode(feedbackText);
