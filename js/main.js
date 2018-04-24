@@ -3,7 +3,7 @@ const options = document.querySelectorAll('select');
 const submit = document.querySelector('#submit');
 const feedback = document.querySelector('.feedback');
 const prompt = document.querySelector('.instructions');
-
+let exercise = 'reflected';
 let attempts = 0;
 
 let answer_set = ["Red","Orange","Yellow","Green","Blue","Purple"];
@@ -23,7 +23,6 @@ options.forEach(option =>{
       box.querySelector('IMG').src = img;
       box.querySelector('IMG').alt = `${color} Lizard`;
 
-
       // declare array to store selections
       let lizards = [];
       // grab all selected values and store them in lizards array
@@ -38,7 +37,6 @@ options.forEach(option =>{
         submit.disabled=false;
       }
     }
-
     option.addEventListener('change',enableSubmit);
 });
 
@@ -52,6 +50,10 @@ const absorbed = document.querySelector('#absorbed');
 reflected.addEventListener('click',() =>{
   // Change the prompt to the reflected wavelength directions
   prompt.innerHTML = `<p>Order the below lizards from <b>HIGHEST</b> to <b>LOWEST</b> reflected wavelength</p>`
+  // Reset the attempts
+  attempts = 0;
+  // Change the exercise for the feedback
+  exercise = 'reflected';
   options.forEach(i =>{
     i.selectedIndex=0;
     submit.disabled=true;
@@ -89,6 +91,10 @@ reflected.addEventListener('click',() =>{
 absorbed.addEventListener('click',() =>{
   // Change the prompt to the absorbed wavelength directions
   prompt.innerHTML = `<p>Order the below lizards from <b>HIGHEST</b> to <b>LOWEST</b> absorbed wavelength</p>`
+  // Reset the attempts
+  attempts = 0;
+  // Change the exercise for the feedback
+  exercise = 'absorbed';
   options.forEach(i =>{
     i.selectedIndex=0;
     submit.disabled=true;
@@ -117,7 +123,7 @@ absorbed.addEventListener('click',() =>{
 
 
   //load in new answer set
-  return answer_set = ["Purple","Blue","Green","Yellow","Orange","Red"];
+  return answer_set = ["Green","Blue","Purple","Red","Orange","Yellow"];
 });
 
 // check users answers
@@ -164,7 +170,7 @@ function checkAnswer(){
   }else {
     attempts++;
     if(attempts === 1){
-      feedbackText = `You are ${((points/6)*100).toFixed(2)}% correct. Remember you are sorting by reflected wavelength!`;
+      feedbackText = `You are ${((points/6)*100).toFixed(2)}% correct. Remember you are sorting by ${exercise} wavelength!`;
     }
     else if (attempts === 2) {
       feedbackText = `You are ${((points/6)*100).toFixed(2)}% correct. Make sure you are not repeating the same color.`;
